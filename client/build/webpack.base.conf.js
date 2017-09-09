@@ -41,10 +41,14 @@ module.exports = {
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
+      { test: /iview.src.*?js$/,  // 按需加在iview
+        loader: 'babel-loader' 
+      },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test')],
+        exclude: [resolve('node_modules')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
