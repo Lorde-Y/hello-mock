@@ -19,8 +19,10 @@ module.exports = {
   'rules': {
     // allow paren-less arrow functions
     'arrow-parens': 0,
+    semi: ["error", "always"],
     // allow async-await
     'generator-star-spacing': 0,
+    'no-console': ["error", { allow: ['warn', 'error', 'log'] }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
