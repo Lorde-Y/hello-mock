@@ -1,10 +1,11 @@
+import express from 'express';
+import mongoose from './mongodb';
 import path from 'path';
 import routes from './routes';
 // const favicon = require('serve-favicon');
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import express from 'express';
 
 // const app = require('./app.js');
 const app = express();
@@ -17,7 +18,21 @@ app.set('view engine', 'jade');
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ 
+  extended: false,
+  type: (req)=> {
+    const contentType = req.get('Content-Type');
+    console.log(contentType)
+    const type = 'application/json';
+    if (!type) {
+      return false;
+    }
+    if (contentType.indexOf(type) > -1) {
+      return type;
+    }
+    return type;
+  }
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -47,3 +62,4 @@ const server = app.listen(3000, function () {
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', 'localhost', port);
 });
+
