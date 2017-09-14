@@ -11,7 +11,7 @@ const Schema = mongoose.Schema;
  *  regDate: 用户注册时间
  */
 const userSchema = new Schema({
-  userid: String,
+  // userid: String,
   username: String,
   password: String,
   mark: String,

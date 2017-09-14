@@ -18,13 +18,9 @@
 </template>
 
 <script>
-  import Input from 'iview/src/components/input';
-  import Button from 'iview/src/components/button';
+  import { mapActions } from 'vuex';
+
   export default {
-    components: {
-      Input,
-      Button
-    },
     data () {
       return {
         loading: false,
@@ -32,9 +28,46 @@
         passWord: ''
       };
     },
+    // mounted () {
+    //   this.loginByUsername({
+    //     username: this.userName,
+    //     password: this.passWord
+    //   }).then((data) => {
+    //     console.log(data);
+    //   });
+    // },
     methods: {
+      ...mapActions([
+        'loginByUsername'
+      ]),
+      showLoadingError (error) {
+        this.$Notice.error({
+          title: '',
+          desc: error || '用户名或密码有误'
+        });
+      },
       onLoading () {
         this.loading = true;
+        this.loginByUsername({
+          username: this.userName,
+          password: this.passWord
+        }).then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            const data = res.data;
+            if (data.errorMsg) {
+              return this.showLoadingError(data.errorMsg);
+            }
+            this.$router.push({path: 'home'});
+          }, 300);
+        }).catch((err, data) => {
+          if (err) {
+            setTimeout(() => {
+              this.loading = false;
+              this.showLoadingError('用户名或密码有误');
+            }, 300);
+          }
+        });
       }
     }
   };

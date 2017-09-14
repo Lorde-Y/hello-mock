@@ -18,24 +18,19 @@ app.set('view engine', 'jade');
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ 
-  extended: false,
-  type: (req)=> {
-    const contentType = req.get('Content-Type');
-    console.log(contentType)
-    const type = 'application/json';
-    if (!type) {
-      return false;
-    }
-    if (contentType.indexOf(type) > -1) {
-      return type;
-    }
-    return type;
-  }
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.all('*', (req, res, next) => {
+  console.log('req');
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By",' 3.2.1');
+  res.header('Content-Type', 'application/json;charset=utf-8');
+  next();
+});
 // 设置路由
 routes(app);
 

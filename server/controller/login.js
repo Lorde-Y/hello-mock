@@ -1,5 +1,5 @@
 import express from 'express';
-import UserModel from '../mongomodel/user.js';
+// import UserModel from '../mongomodel/user.js';
 
 const router = express.Router();
 
