@@ -14,7 +14,7 @@ router.post('/', function (req, res, next) {
   if (username === '' || password === '') {
     const errObj = Utils.error('USER', '1500', 'username or password invalid');
     return res.json(errObj);
-  }
+  };
   UserSerice.checkUserExist({username, password}, (error, result) => {
     if (error) {
       return res.json(error);
