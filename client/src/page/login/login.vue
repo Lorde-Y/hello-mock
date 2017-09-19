@@ -54,7 +54,7 @@
         }).then((res) => {
           setTimeout(() => {
             this.loading = false;
-            const data = res.data;
+            const data = Object.assign({}, res);
             if (data.errorMsg) {
               return this.showLoadingError(data.errorMsg);
             }
