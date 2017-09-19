@@ -22,30 +22,27 @@ class UserService {
       return callback(null, res);
     });
   }
-  checkUserExist (params, callback) {
+  async checkUserExist (params, callback) {
     const { username, password } = params;
     const flag = this.validate(params);
     if (!flag) {
       const errObj = Utils.error('USER', '1500', 'username or password limint 8 chars');
       return callback(errObj);
     }
-    UserModal
-      .findOne({username: username})
-      .then((user) => {
-        if (user) {
-          if (user.password === password) {
-            return callback(null, user);
-          }
-          const errObj = Utils.error('USER', '1500', 'username or password invalid');
-          return callback(errObj);
-        }
-        this.registerUser(params, (error, res) => {
-          if (error) {
-            return callback(error);
-          }
-          return callback(null, res);
-        });
-      });
+    const user = await UserModal.findOne({username: username});
+    if (user) {
+      if (user.password === password) {
+        return callback(null, user);
+      }
+      const errObj = Utils.error('USER', '1500', 'username or password invalid');
+      return callback(errObj);
+    }
+    this.registerUser(params, (error, res) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, res);
+    });
   }
 };
 

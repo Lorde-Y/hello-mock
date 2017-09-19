@@ -6,6 +6,8 @@ import routes from './routes';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import session from 'express-session';
+import connectMongo from 'connect-mongo';
 
 // const app = require('./app.js');
 const app = express();
@@ -22,8 +24,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const MongoStore = connectMongo(session);
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'hello mock',
+  store: new MongoStore({ url: 'mongodb://localhost/session' }),
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  }
+}));
+
 app.all('*', (req, res, next) => {
-  console.log('req');
   res.header('Access-Control-Allow-Origin', '*');
   res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
