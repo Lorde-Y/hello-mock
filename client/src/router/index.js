@@ -1,13 +1,14 @@
+import Home from '@/page/home/home';
 import Login from '@/page/login/login';
 import Hello from '@/components/Hello';
 
 export default [{
   path: '/',
-  redirect: '/home'
+  component: Home
 },
 {
   path: '',
-  redirect: '/home'
+  component: Home
 },
 {
   path: '/home',
