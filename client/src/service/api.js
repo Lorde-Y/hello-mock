@@ -5,3 +5,5 @@ import ajax from '../utils/request';
  * @return {[type]} [description]
  */
 export const checkUserLogin = (data) => ajax({type: 'POST', url: '/user', data: data});
+
+export const createProject = (data) => ajax({type: 'POST', url: '/project/create', data: data});

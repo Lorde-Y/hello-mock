@@ -15,8 +15,8 @@ Vue.use(Router);
 Vue.use(iView);
 
 const router = new Router({
-  mode: 'history',
   routes
+  // mode: 'history'
 });
 
 /* eslint-disable no-new */

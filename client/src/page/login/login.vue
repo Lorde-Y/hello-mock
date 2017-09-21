@@ -58,7 +58,7 @@
             if (data.errorMsg) {
               return this.showLoadingError(data.errorMsg);
             }
-            this.$router.push({path: 'home'});
+            this.$router.push({path: 'create'});
           }, 300);
         }).catch((err, data) => {
           if (err) {

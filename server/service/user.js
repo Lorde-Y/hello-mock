@@ -1,9 +1,12 @@
-import UserModal from '../mongomodel/user.js';
+import UserModel from '../mongomodel/user.js';
 import Utils from '../common/utils.js';
 
 class UserService {
   validate (params) {
     const { username, password } = params;
+    if (username === '' || password === '') {
+      return false;
+    };
     if (username.length > 8 || password.length > 16) {
       return false;
     }
@@ -11,7 +14,7 @@ class UserService {
   }
   registerUser (params, callback) {
     const { username, password } = params;
-    const user = new UserModal({
+    const user = new UserModel({
       username,
       password
     });
@@ -29,7 +32,7 @@ class UserService {
       const errObj = Utils.error('USER', '1500', 'username or password limint 8 chars');
       return callback(errObj);
     }
-    const user = await UserModal.findOne({username: username});
+    const user = await UserModel.findOne({username: username});
     if (user) {
       if (user.password === password) {
         return callback(null, user);

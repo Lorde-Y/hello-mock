@@ -5,14 +5,17 @@ import mutations from './mutation';
 
 Vue.use(Vuex);
 
-// const debug = process.env.NODE_ENV !== 'production';
+const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  helloworld: false
+  helloworld: false,
+  userInfo: null,
+  currentProject: null
 };
 
 export default new Vuex.Store({
   actions,
   state,
-  mutations
+  mutations,
+  strict: debug
 });
