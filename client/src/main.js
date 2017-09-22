@@ -2,12 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import store from './store';
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
 import App from './App';
 import Router from 'vue-router';
 import routes from './router';
 import './style/reset.css';
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';
 
 Vue.config.productionTip = false;
 
