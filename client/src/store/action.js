@@ -49,7 +49,7 @@ export default {
       const projectId = state.currentProject.projectId || '123213123131';
       getProjectInterfaces({projectId})
       .then((res) => {
-        commit(CREATE_INTERFACE, res.data);
+        // commit(CREATE_INTERFACE, res.data);
         resolve(res);
       }).catch((error) => {
         reject(error);

@@ -6,9 +6,9 @@
         <Row>
           <Col span="18">
             <div class='project__base'>
-              <h3>Example</h3>
-              <h4>http://localhost:8080/projectId/baseUrl</h4>
-              <h5>这里是项目简介描述</h5>
+              <h3>{{ getCurrentProject.projectName }}</h3>
+              <h4>http://localhost:8080/{{ getCurrentProject.projectId }}/{{ getCurrentProject.url }}</h4>
+              <h5>{{ getCurrentProject.projectDesc }}</h5>
             </div>
           </Col>
           <Col span="1">&nbsp;</Col>
@@ -35,48 +35,6 @@
                       </div>
                     </MenuItem>
                   </Menu>
-               <!--  <Modal
-                  v-model="modelVisible"
-                  width="1000"
-                  title="创建接口"
-                  ok-text="创建接口"
-                >
-                  <div class="create__interface">
-                    <Row :gutter="24">
-                        <Col span="24" class-name='left-col'>
-                          <div class='interface__item'>
-                            <Form :model="formInterface" label-position="top">
-                              <FormItem label="Method" prop="selectMethod" required>
-                                <Select v-model="formInterface.selectMethod" style="width:200px">
-                                  <Option v-for="item in methodList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                                </Select>
-                              </FormItem>
-                              <FormItem label="URL" required>
-                                <Input v-model="formInterface.url" placeholder='example'>
-                                    <span slot="prepend" >/</span>
-                                </Input>
-                              </FormItem>
-                              <FormItem label="接口描述" required>
-                                  <Input v-model="formInterface.desc" placeholder='写点介绍咯'></Input>
-                              </FormItem>
-                              <FormItem label="参数说明">
-                                <Input v-model="formInterface.paramsDesc" type="textarea" :rows="4" placeholder="请输入..."></Input>
-                              </FormItem>
-                              <FormItem label="参数<Json格式>" required>
-                                <Input v-model="formInterface.params" type="textarea" :rows="4" placeholder="请输入..."></Input>
-                              </FormItem>
-                              <FormItem label="返回成功数据<Json格式>" required>
-                                <Input v-model="formInterface.success" type="textarea" :rows="4" placeholder="请输入..."></Input>
-                              </FormItem>
-                              <FormItem label="返回失败数据<Json格式>" required>
-                                <Input v-model="formInterface.error" type="textarea" :rows="4" placeholder="请输入..."></Input>
-                              </FormItem>
-                            </Form>
-                          </div>
-                        </Col>
-                    </Row>
-                  </div>
-                </Modal> -->
                 <div v-if="showCreateInterface">
                   <Create-interface
                     :showModel="showCreateInterface"
@@ -100,12 +58,11 @@
   import HeaderTop from '@/components/Header';
   import ProjectUrl from '@/components/project__url';
   import CreateInterface from '@/components/interface__create';
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   export default {
     name: 'project',
     data () {
       return {
-        // modelVisible: true,
         showCreateInterface: false,
         theme3: 'light',
         menuWidth: 'auto',
@@ -147,6 +104,11 @@
       HeaderTop,
       ProjectUrl,
       CreateInterface
+    },
+    computed: {
+      ...mapGetters([
+        'getCurrentProject'
+      ])
     },
     methods: {
       ...mapActions([

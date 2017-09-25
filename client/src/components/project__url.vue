@@ -17,6 +17,7 @@
     data () {
       return {
         type: 'expand',
+        dataList: [],
         columns: [
           {
             type: 'expand',
@@ -121,28 +122,32 @@
     mounted () {
       this.getProjectInterfaces()
       .then((res) => {
-        console.log(res);
         const { status, data, success } = res;
         if (status === 200 && data && success) {
           this.dataList = data;
         }
       })
       .catch((error) => {
-        console.log(error);
         if (error) {
           this.dataList = [];
         }
       });
     },
-    computed: {
-      dataList: {
-        get: function () {
-          return Object.assign([], this.$store.state.interfaceList);
-        },
-        set: function (newValue) {
-          return Object.assign([], newValue);
-        }
+    watch: {
+      dataList: (val) => {
+        return Object.assign([], val);
       }
+      // dataList: {
+      //   get: function () {
+      //     console.log('.....get...');
+      //     return Object.assign([], this.$store.state.interfaceList);
+      //   },
+      //   set: function (newValue) {
+      //     console.log('......setter....');
+      //     console.log(newValue);
+      //     return Object.assign([], newValue);
+      //   }
+      // }
     },
     methods: {
       ...mapActions([
