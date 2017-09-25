@@ -2,30 +2,30 @@
   <div>
     <Row class="expand-row">
       <Col span="8">
-        <span class="expand-key">职业：</span>
-        <span class="expand-value">{{ row.job }}</span>
+        <span class="expand-key">Method：</span>
+        <span class="expand-value">{{ row.method }}</span>
       </Col>
       <Col span="8">
-        <span class="expand-key">兴趣：</span>
-        <span class="expand-value">{{ row.interest }}</span>
+        <span class="expand-key">URL：</span>
+        <span class="expand-value">{{ row.url }}</span>
       </Col>
       <Col span="8">
-        <span class="expand-key">生日：</span>
-        <span class="expand-value">{{ row.birthday }}</span>
+        <span class="expand-key">接口描述：</span>
+        <span class="expand-value">{{ row.interfaceDesc }}</span>
       </Col>
     </Row>
     <Row>
       <Col span="8">
-        <span class="expand-key">最喜欢的书：</span>
-        <span class="expand-value">《{{ row.book }}》</span>
+        <span class="expand-key">接口参数：</span>
+        <span class="expand-value">{{ row.params }}</span>
       </Col>
       <Col span="8">
-        <span class="expand-key">最喜欢的电影：</span>
-        <span class="expand-value">{{ row.movie }}</span>
+        <span class="expand-key">返回成功数据：</span>
+        <span class="expand-value">{{ row.successData }}</span>
       </Col>
       <Col span="8">
-        <span class="expand-key">最喜欢的音乐：</span>
-        <span class="expand-value">{{ row.music }}</span>
+        <span class="expand-key">返回失败数据：</span>
+        <span class="expand-value">{{ row.errorData }}</span>
       </Col>
     </Row>
   </div>

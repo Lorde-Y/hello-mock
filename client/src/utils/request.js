@@ -6,11 +6,20 @@ export default (opts) => {
   const url = opts.url;
   const data = opts.data || {};
   const headers = opts.header || {'Content-Type': 'application/json'};
+  console.log('....services...');
+  console.log(data);
+  let params = {};
+  if (method === 'GET') {
+    params = {
+      ...opts.data
+    };
+  }
   return axios({
     method,
     baseURL,
     url,
     data,
+    params,
     headers,
     withCredentials: false
   })

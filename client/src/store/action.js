@@ -1,5 +1,5 @@
-import {checkUserLogin, createProject} from '../service/api';
-import {USER_LOGIN, CREATE_PROJECT} from './mutation-types';
+import {checkUserLogin, createProject, createInterface, getProjectInterfaces} from '../service/api';
+import {USER_LOGIN, CREATE_PROJECT, CREATE_INTERFACE} from './mutation-types';
 
 export default {
   loginByUsername ({ commit }, userInfo) {
@@ -23,6 +23,33 @@ export default {
       .then((res) => {
         const objData = Object.assign({}, res, projectData);
         commit(CREATE_PROJECT, objData);
+        resolve(res);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  },
+  createOneInterface ({ commit, state }, data) {
+    const interfaceData = {
+      projectId: state.currentProject.projectId || '123213123131',
+      ...data
+    };
+    return new Promise((resolve, reject) => {
+      createInterface(interfaceData)
+      .then((res) => {
+        commit(CREATE_INTERFACE, [interfaceData]);
+        resolve(res);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  },
+  getProjectInterfaces ({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      const projectId = state.currentProject.projectId || '123213123131';
+      getProjectInterfaces({projectId})
+      .then((res) => {
+        commit(CREATE_INTERFACE, res.data);
         resolve(res);
       }).catch((error) => {
         reject(error);

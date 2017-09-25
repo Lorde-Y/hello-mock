@@ -10,7 +10,8 @@ const debug = process.env.NODE_ENV !== 'production';
 const state = {
   helloworld: false,
   userInfo: null,
-  currentProject: null
+  currentProject: {},
+  interfaceList: []
 };
 
 export default new Vuex.Store({

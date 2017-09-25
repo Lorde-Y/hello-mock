@@ -35,7 +35,7 @@
                       </div>
                     </MenuItem>
                   </Menu>
-                <Modal
+               <!--  <Modal
                   v-model="modelVisible"
                   width="1000"
                   title="创建接口"
@@ -45,7 +45,6 @@
                     <Row :gutter="24">
                         <Col span="24" class-name='left-col'>
                           <div class='interface__item'>
-                            <!-- <Button type="success" long>创建接口</Button> -->
                             <Form :model="formInterface" label-position="top">
                               <FormItem label="Method" prop="selectMethod" required>
                                 <Select v-model="formInterface.selectMethod" style="width:200px">
@@ -75,32 +74,16 @@
                             </Form>
                           </div>
                         </Col>
-                        <!-- <Col span="2">&nbsp;</Col> -->
-                        <!-- <Col span="12" offset="4">
-                          <div class='interface__item'>
-                            <Form :model="formInterface" label-position="left">
-                              <FormItem label="参数<Json格式>">
-                                <Input v-model="formInterface.params" type="textarea" :rows="4" placeholder="请输入..."></Input>
-                              </FormItem>
-                              <FormItem label="返回成功数据<Json格式>">
-                                <Input v-model="formInterface.params" type="textarea" :rows="4" placeholder="请输入..."></Input>
-                              </FormItem>
-                              <FormItem label="返回失败数据<Json格式>">
-                                <Input v-model="formInterface.params" type="textarea" :rows="4" placeholder="请输入..."></Input>
-                              </FormItem>
-                            </Form>
-                          </div>
-                        </Col> -->
                     </Row>
                   </div>
-                </Modal>
-                <!-- <div v-if="showCreateInterface">
+                </Modal> -->
+                <div v-if="showCreateInterface">
                   <Create-interface
                     :showModel="showCreateInterface"
                     v-on:closeInterface="closeInterfaceModel"
                   >
                   </Create-interface>
-                </div> -->
+                </div>
               </div>
             </div>
           </Col>
@@ -122,7 +105,7 @@
     name: 'project',
     data () {
       return {
-        modelVisible: true,
+        // modelVisible: true,
         showCreateInterface: false,
         theme3: 'light',
         menuWidth: 'auto',
@@ -154,6 +137,7 @@
           member: '',
           selectMethod: '',
           paramsDesc: '',
+          params: '',
           success: '',
           error: ''
         }
@@ -169,7 +153,6 @@
         'createOneProject'
       ]),
       closeInterfaceModel () {
-        console.log('....calllballl..');
         this.showCreateInterface = false;
       },
       onShowCreateInterface () {
@@ -245,7 +228,6 @@
   }
   .ivu-col-span-18 {
     padding: 30px 20px 46px 20px;
-    // margin: 20px 0;
     font-size: 16px;
     color: #fff;
     background: #2d8cf0;
@@ -268,26 +250,6 @@
       .ivu-menu-item:not(.ivu-menu-item-active){
         border-right: 2px solid #252d47;
         z-index: 2;
-      }
-    }
-  }
-  .ivu-modal-body {
-    padding: 28px;
-  }
-  .create__interface {
-    // display: flex;
-    // .interface__item {
-    //   flex: 1;
-    // }
-    .ivu-form {
-      textarea.ivu-input {
-        background: #2F3129;
-        color: #8F908A;
-      }
-      .ivu-form-item-label {
-        font-weight: 600;
-        font-size: 14px;
-        color: #495060;
       }
     }
   }

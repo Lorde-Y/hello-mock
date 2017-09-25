@@ -1,14 +1,23 @@
 <template>
-    <Table border :columns="columns7" :data="data6" :type="type"></Table>
+  <div class='interface__list'>
+    <div v-if="dataList.length === 0">
+      <span>暂无接口，请创建！</span>
+    </div>
+    <div v-else>
+      <Table border :columns="columns" :data="dataList" :type="type"></Table>
+    </div>
+  </div>
+
 </template>
 <script>
   import expandRow from './project__url__expand';
+  import { mapActions } from 'vuex';
   export default {
     components: { expandRow },
     data () {
       return {
         type: 'expand',
-        columns7: [
+        columns: [
           {
             type: 'expand',
             width: 50,
@@ -37,7 +46,7 @@
                     size: 'small',
                     long: true
                   }
-                }, params.row.name)
+                }, params.row.method)
               ]);
             }
           },
@@ -47,7 +56,7 @@
           },
           {
             title: '描述',
-            key: 'desc'
+            key: 'interfaceDesc'
           },
           {
             title: '操作',
@@ -84,32 +93,61 @@
               ]);
             }
           }
-        ],
-        data6: [
-          {
-            name: '王小明',
-            age: 18,
-            address: '北京市朝阳区芍药居'
-          },
-          {
-            name: '张小刚',
-            age: 25,
-            address: '北京市海淀区西二旗'
-          },
-          {
-            name: '李小红',
-            age: 30,
-            address: '上海市浦东新区世纪大道'
-          },
-          {
-            name: '周小伟',
-            age: 26,
-            address: '深圳市南山区深南大道'
-          }
         ]
+        // data: [
+        //   {
+        //     name: '王小明',
+        //     age: 18,
+        //     address: '北京市朝阳区芍药居'
+        //   },
+        //   {
+        //     name: '张小刚',
+        //     age: 25,
+        //     address: '北京市海淀区西二旗'
+        //   },
+        //   {
+        //     name: '李小红',
+        //     age: 30,
+        //     address: '上海市浦东新区世纪大道'
+        //   },
+        //   {
+        //     name: '周小伟',
+        //     age: 26,
+        //     address: '深圳市南山区深南大道'
+        //   }
+        // ]
       };
     },
+    mounted () {
+      this.getProjectInterfaces()
+      .then((res) => {
+        console.log(res);
+        const { status, data, success } = res;
+        if (status === 200 && data && success) {
+          this.dataList = data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error) {
+          this.dataList = [];
+        }
+      });
+    },
+    computed: {
+      dataList: {
+        get: function () {
+          return Object.assign([], this.$store.state.interfaceList);
+        },
+        set: function (newValue) {
+          return Object.assign([], newValue);
+        }
+      }
+    },
     methods: {
+      ...mapActions([
+        'getProjectInterfaces'
+      ]),
       show (index) {
         this.$Modal.info({
           title: '用户信息',
@@ -122,3 +160,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .interface__list {
+    color: #000;
+  }
+</style>
+
