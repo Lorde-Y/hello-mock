@@ -11,24 +11,11 @@ class MockService {
     return true;
   }
   async sendRequest (params, callback) {
-    // const flag = this.validate(params);
-    // if (!flag) {
-    //   const errObj = Utils.error('Project', '1500', 'params invalid');
-    //   return callback(errObj);
-    // }
     const { projectId, baseUrl, interfaceUrl } = params;
     console.log({projectId: projectId, url: interfaceUrl, method: 'GET'});
-    const Project = await InterfaceModel.find({projectId: projectId, url: interfaceUrl, method: 'GET'});
-    console.log(Project);
-    return callback(null, {'hello': 'world'});
-    // ProjectModel
-    //   .create(params)
-    //   .then(res => {
-    //     return callback(null, res);
-    //   })
-    //   .catch(err => {
-    //     return callback(err);
-    //   });
+    const interfaceData = await InterfaceModel.find({projectId: projectId, url: interfaceUrl, method: 'GET'});
+    const { successData } = interfaceData[0];
+    return callback(null, JSON.parse(successData));
   }
 }
 
